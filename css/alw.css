@@ -1,0 +1,209 @@
+.member-logged-in img{
+	margin-right: 5px;
+}
+
+/*membership lightbox starts*/
+.membership-lightbox{
+	width: 350px;
+	padding: 20px;
+	padding-top: 80px;
+	background: white;
+	text-align:center;
+	font-size: 13px;
+	display: block;
+	margin: 0 auto;
+	background-size: 80%;
+	position: relative;
+	border-radius: 10px;
+}
+
+body .membership-lightbox .mfp-close{
+    right: -5px;
+    top: -5px!important;
+    color: rgba(255, 255, 255, 0.5);
+    background: none;
+}
+
+@media (max-width: 750px){
+
+	.membership-lightbox .mfp-close{
+		right: 0;
+		top: 5px!important;
+	}
+
+}
+
+.register-lightbox-header{
+    background: url(http://www.gfrecipes.ca/wp-content/themes/gfrecipesca2015/images/logos/9.png) no-repeat center center #293C4F;
+    background-color: #293C4F;
+    background-size: 80%;
+    height: 70px;
+    width: 100%;
+    position: absolute;
+    top: -3px;
+    left: 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.membership-lightbox-heading{
+	font-weight:bold;
+	display: block;
+	font-size: 22px
+}
+
+.membership-lightbox input{
+	color: rgba(0, 0, 0, 0.7);
+	font-size: 1.2em;
+	margin :10px auto;
+	display: block;
+	border: 1px solid rgba(1, 1, 1, 0.15);
+	width: 100%;
+	padding: 6px;
+	transition: .3s;
+}
+
+.membership-lightbox input::-webkit-input-placeholder
+{
+	color: rgba(0, 0, 0, 0.3);
+}
+
+.membership-lightbox input::-moz-placeholder
+{
+	color: rgba(0, 0, 0, 0.3);
+}
+
+.membership-lightbox input:-ms-input-placeholder
+{
+	color: rgba(0, 0, 0, 0.3);
+}
+
+.membership-lightbox input.alw_input_error{
+	border-color: #FF9E9E;
+	background: rgba(255, 215, 215, 0.72);
+}
+
+.membership-lightbox input:focus{
+	border-color: #FABF22;
+	box-shadow: 0 0 5px #FABF22;
+	border-width: 1px;
+	outline: none;
+	background: none;
+}
+
+.membership-lightbox span+input{
+	margin-top: 20px;
+}
+
+.membership-lightbox input+span{
+	margin-top: 20px;
+	display: block;
+}
+
+.membership-lightbox a{
+	text-decoration: underline;
+	color: #D6A41F;
+}
+
+.membership-lightbox a:visited{
+	color: #906F16;
+}
+
+.membership-lightbox input.button{
+	text-transform: none;
+	font-weight: normal;
+	margin: 12px 0;
+	background-color: #FABF22!important;
+	color: rgba(0, 0, 0, 0.59)!important;
+	width: 100%;
+	text-align: center;
+	padding: 12px;
+	letter-spacing: 1px;
+	border: none;
+	cursor: pointer;
+}
+
+.login-lightbox.membership-lightbox input.button{
+	margin: 10px auto;
+}
+
+.registeration-done-lightbox .register-lightbox-byline{
+	font-size: 15px;
+	margin: 10px 0;
+	display: block;
+	font-weight: bold;
+	color: #777;
+}
+
+.register-lightbox-item{
+	margin: 15px 0;
+	text-align: left;
+}
+
+.register-lightbox-item strong{
+	display: block;
+}
+
+.membership-lightbox-number{
+	display: inline-block;
+	background: #293C4F;
+	color: white;
+	padding: 6px;
+	width: 30px;
+	text-align: center;
+	border-radius: 30px;
+	float:  left;
+	margin-right: 10px;
+}
+
+.register-lightbox-item>strong+span{
+    display: block;
+    margin-left: 40px;
+}
+
+.membership-lightbox-footer{
+	display: block;
+}
+
+.membership-ligtbox-error {
+	display: block;
+	background: rgba(255, 0, 0, 0.16);
+	color: #5F0000;
+	padding: 7px;
+	margin: 10px 0 5px;
+	font-size: 13px;
+	text-shadow: -1px 0 rgba(255, 255, 255, .3);
+}
+
+.membership-ligtbox-success {
+	background: rgba(4, 255, 0, 0.16);
+	color: #005F03;
+}
+
+.forgot-password-lightbox span:nth-child(3){
+	margin-top:5px;
+	display:block;
+}
+
+.membership-lightbox.forgot-password-lightbox input{
+	margin-top:10px;
+	display:block;
+}
+
+.membership-lightbox .button.forgot-password-lightbox-submit{
+	/* width: 174px; */
+	margin: 5px auto;
+}
+
+.membership-lightbox.forgot-password-lightbox .membership-lightbox-footer{
+	margin-top: 3px;
+}
+
+.registeration-done-lightbox-trigger{
+/* display: none; */
+}	
+
+.membership-lightbox-button-locked{
+	opacity: .4;
+	transform: scale(.9);
+}
+/*membership lightbox ends*/
