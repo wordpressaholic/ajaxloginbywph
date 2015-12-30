@@ -1,12 +1,19 @@
 .member-logged-in img{
-	margin-right: 5px;
+	margin: 0 5px 0 0;
+  border-radius: 100%;
+  display: inline-block;
+	float: none;
+  vertical-align: middle;
 }
 
-/*membership lightbox starts*/
+.member-logged-in>span, .member-logged-out>span{
+    margin: 5px;
+}
+
 .membership-lightbox{
-	width: 350px;
-	padding: 20px;
-	padding-top: 80px;
+	width: 370px;
+	padding: 25px;
+	padding-top: 85px;
 	background: white;
 	text-align:center;
 	font-size: 13px;
@@ -15,6 +22,17 @@
 	background-size: 80%;
 	position: relative;
 	border-radius: 10px;
+	box-sizing: border-box;
+}
+
+.membership-lightbox:after{
+	content: ' ';
+	display: block;
+	clear: both;
+}
+
+.membership-lightbox *{
+	box-sizing: border-box;
 }
 
 body .membership-lightbox .mfp-close{
@@ -34,32 +52,54 @@ body .membership-lightbox .mfp-close{
 }
 
 .register-lightbox-header{
-    background: url(http://www.gfrecipes.ca/wp-content/themes/gfrecipesca2015/images/logos/9.png) no-repeat center center #293C4F;
-    background-color: #293C4F;
-    background-size: 80%;
-    height: 70px;
     width: 100%;
     position: absolute;
     top: -3px;
     left: 0;
     border-radius: 10px 10px 0 0;
+    overflow: hidden;
 }
+
+.register-lightbox-header img{
+	max-width: 100%;
+}
+
+.no-register-lightbox-header.membership-lightbox{
+	padding: 30px;
+	width: 370px;
+}
+
+.no-register-lightbox-header .register-lightbox-header{
+	display: none;
+}
+
+body .membership-lightbox.no-register-lightbox-header .mfp-close{
+    color: rgba(0, 0, 0, 0.5);
+    background: none;
+    top: 5px!important;
+    right: 5px!important;
+}
+
 
 .membership-lightbox-heading{
 	font-weight:bold;
 	display: block;
-	font-size: 22px
+	font-size: 22px;
+	margin-top: .25em;
 }
 
+.membership-lightbox input[type],
 .membership-lightbox input{
 	color: rgba(0, 0, 0, 0.7);
-	font-size: 1.2em;
-	margin :10px auto;
+	font-size: 14px;
+	margin: 12px auto;
 	display: block;
 	border: 1px solid rgba(1, 1, 1, 0.15);
 	width: 100%;
-	padding: 6px;
+	padding: 8px 6px;
 	transition: .3s;
+	background: none;
+	border-radius: 4px;
 }
 
 .membership-lightbox input::-webkit-input-placeholder
@@ -78,11 +118,12 @@ body .membership-lightbox .mfp-close{
 }
 
 .membership-lightbox input.alw_input_error{
-	border-color: #FF9E9E;
-	background: rgba(255, 215, 215, 0.72);
+	border-color: rgba(255, 158, 158, 0.45);
+	background: rgba(255, 215, 215, 0.25);
 }
 
-.membership-lightbox input:focus{
+.membership-lightbox input:focus,
+.membership-lightbox input[type]:focus{
 	border-color: #FABF22;
 	box-shadow: 0 0 5px #FABF22;
 	border-width: 1px;
@@ -108,22 +149,25 @@ body .membership-lightbox .mfp-close{
 	color: #906F16;
 }
 
-.membership-lightbox input.button{
+.membership-lightbox input.button[type=submit]{
 	text-transform: none;
 	font-weight: normal;
 	margin: 12px 0;
-	background-color: #FABF22!important;
-	color: rgba(0, 0, 0, 0.59)!important;
+	background-color: #FABF22;
+	box-shadow: none;
+	color: rgba(0, 0, 0, 0.59);
 	width: 100%;
 	text-align: center;
 	padding: 12px;
 	letter-spacing: 1px;
 	border: none;
 	cursor: pointer;
+	float: left;
 }
 
 .login-lightbox.membership-lightbox input.button{
 	margin: 10px auto;
+	margin-top: 2px;
 }
 
 .registeration-done-lightbox .register-lightbox-byline{
@@ -162,16 +206,18 @@ body .membership-lightbox .mfp-close{
 
 .membership-lightbox-footer{
 	display: block;
+	margin-top: .25em;
 }
 
 .membership-ligtbox-error {
 	display: block;
-	background: rgba(255, 0, 0, 0.16);
-	color: #5F0000;
+	background: rgba(255, 0, 0, 0.09);
+	color: rgb(175, 101, 101);
 	padding: 7px;
 	margin: 10px 0 5px;
 	font-size: 13px;
-	text-shadow: -1px 0 rgba(255, 255, 255, .3);
+	text-shadow: -1px 0 rgba(255, 255, 255, 0.58);
+	clear: both;
 }
 
 .membership-ligtbox-success {
@@ -189,21 +235,77 @@ body .membership-lightbox .mfp-close{
 	display:block;
 }
 
-.membership-lightbox .button.forgot-password-lightbox-submit{
-	/* width: 174px; */
-	margin: 5px auto;
+.membership-lightbox.forgot-password-lightbox input.button{
+	margin-top:0;
 }
 
 .membership-lightbox.forgot-password-lightbox .membership-lightbox-footer{
 	margin-top: 3px;
 }
 
-.registeration-done-lightbox-trigger{
-/* display: none; */
-}	
-
-.membership-lightbox-button-locked{
+.membership-lightbox input.button.membership-lightbox-button-locked{
 	opacity: .4;
-	transform: scale(.9);
+	width: calc(100% - 30px);
+	padding-right: 0;
+	padding-left: 0;
 }
-/*membership lightbox ends*/
+
+.alw_spinner_container{
+	text-align: right;
+	width: 0;
+	height: 0;
+}
+
+.alw_spinner {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  display: inline-block;
+  top: .5em;
+  opacity: 0;
+  transition: .2s;
+}
+
+.registeration-lightbox .alw_spinner {
+  top: 1em;
+}
+
+.membership-lightbox-button-locked+.alw_spinner_container .alw_spinner{
+	transform: translateX(10px);
+	-webkit-transform: translateX(10px);
+	opacity: 1;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.15);
+  opacity: 0.6;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}

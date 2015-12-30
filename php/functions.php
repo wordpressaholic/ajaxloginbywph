@@ -7,13 +7,13 @@
 add_action( 'wp_ajax_alw_login', 'alw_login' );
 add_action( 'wp_ajax_nopriv_alw_login', 'alw_login' );
 function alw_login( ){
-	
+
 	if( empty( $_REQUEST[ 'email' ] ) )
 		die( json_encode( array( 'message'=> 'no username/email' ) ) );
 
 	if( empty( $_REQUEST[ 'password' ] ) )
 		die( json_encode( array( 'message'=> 'no password' ) ) );
-	
+
 	$username = $_REQUEST[ 'email' ];
 
     if( is_email( $username ) ){
@@ -24,17 +24,17 @@ function alw_login( ){
 		if( ! username_exists( $username ) )
 			die( json_encode( array( 'message'=> 'unregistered username' ) ) );
 	}
-	
+
 	$creds = array( );
 	$creds[ 'user_login' ] = $username;
 	$creds[ 'user_password' ] = $_REQUEST[ 'password' ];
 	$creds[ 'remember' ] = true;
-	
+
 	remove_all_actions( 'wp_login_failed' );
 	add_filter( 'authenticate', 'alw_allow_email_login', 20, 3 );
 	if( is_wp_error( wp_signon( $creds, false ) ) )
 		die( json_encode( array( 'message'=> 'incorrect password' ) ) );
-		
+
 	die( json_encode( array( 'message'=> 'successful login' ) ) );
 }
 
@@ -42,35 +42,38 @@ function alw_login( ){
 add_action( 'wp_ajax_alw_register', 'alw_register' );
 add_action( 'wp_ajax_nopriv_alw_register', 'alw_register' );
 function alw_register( ){
-	
+
 	if( empty( $_REQUEST[ 'first_name' ] ) || ! trim( $_REQUEST[ 'first_name' ] ) )
 		die( json_encode( array( 'message'=> 'no first_name' ) ) );
-	
+
 	if( empty( $_REQUEST[ 'last_name' ] ) || ! trim( $_REQUEST[ 'last_name' ] ) )
 		die( json_encode( array( 'message'=> 'no last_name' ) ) );
-	
+
 	// username
 	//-- given
 	if( empty( $_REQUEST[ 'username' ] ) )
 		die( json_encode( array( 'message'=> 'no username' ) ) );
-	//-- valid	
+	// wp only allows lowercase
+	if( $_REQUEST[ 'username' ] !== strtolower( $_REQUEST[ 'username' ] ) )
+		die( json_encode( array( 'message'=> 'lowercase username' ) ) );
+	//-- valid
 	if( ! validate_username( $_REQUEST[ 'username' ] ) )
 		die( json_encode( array( 'message'=> 'invalid username' ) ) );
 	//-- unique
 	if( username_exists( $_REQUEST[ 'username' ] ) )
 		die( json_encode( array( 'message'=> 'username exists' ) ) );
-	
+
 	// email
 	//-- given
 	if( empty( $_REQUEST[ 'email' ] ) )
 		die( json_encode( array( 'message'=> 'no email' ) ) );
-	//-- valid	
+	//-- valid
 	if( ! is_email( $_REQUEST[ 'email' ] ) )
 		die( json_encode( array( 'message'=> 'invalid email' ) ) );
 	//-- unique
 	if( get_user_by( 'email', $_REQUEST[ 'email' ] ) )
 		die( json_encode( array( 'message'=> 'email exists' ) ) );
-	
+
 	// password
 	//-- given
 	if( empty( $_REQUEST[ 'password' ] ) )
@@ -88,13 +91,13 @@ function alw_register( ){
 		'user_pass'   =>  $_REQUEST[ 'password' ]
 	);
 	wp_insert_user( $userdata );
-	
+
 	// signon
 	$creds = array( );
 	$creds[ 'user_login' ] = $_REQUEST[ 'email' ];
 	$creds[ 'user_password' ] = $_REQUEST[ 'password' ];
 	$creds[ 'remember' ] = true;
-	
+
 	remove_all_actions( 'wp_login_failed' );
 	add_filter('authenticate', 'alw_allow_email_login', 20, 3);
 	if( is_wp_error( wp_signon( $creds, false ) ) )
@@ -110,11 +113,11 @@ function alw_validate_pass( $pass ){
 	if( $length > 25 || $length < 6 ){
 		return false;
 	}
-	
+
 	$pass_arr = str_split( $pass );
 	$allowed = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_ []{}<>~`+=,.;:/?|';
 	$valid = true;
-	
+
 	foreach( $pass_arr as $pass_char ){
 		if( strpos( $allowed, $pass_char ) === false ){ // needs to be explicit as 'a' is at 0 which is falsey
 			$valid = false;
@@ -136,7 +139,7 @@ function alw_allow_email_login( $user, $username, $password ) {
 add_action( 'wp_ajax_alw_forgot_password', 'alw_forgot_password' );
 add_action( 'wp_ajax_nopriv_alw_forgot_password', 'alw_forgot_password' );
 function alw_forgot_password( ){
-	
+
 	// email
 
 	//-- given
@@ -151,16 +154,16 @@ function alw_forgot_password( ){
 		if( ! $user ) die( json_encode( array( 'message'=> 'unregistered email' ) ) );
 		$user_email = $email;
 		$user_login = $user->data->user_login;
-		
+
 	}else{
 		$username = $email;
 		$user = get_user_by( 'login', $username );
 		if( ! $user ) die( json_encode( array( 'message'=> 'unregistered username' ) ) );
 		$user_email = $user->data->user_email;
 		$user_login = $user->data->user_login;
-		
+
 	}
-	
+
 	// mail the link
     global $wpdb, $wp_hasher;
 
@@ -202,9 +205,9 @@ function alw_forgot_password( ){
 
     $title = apply_filters('retrieve_password_title', $title);
     $message = apply_filters('retrieve_password_message', $message, $key);
-	
+
     if ( $message && ! wp_mail($user_email, $title, $message) )
-        wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function...') );	
+        wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function...') );
 
 	die( json_encode( array( 'message'=> 'successful reset' ) ) );
 }
